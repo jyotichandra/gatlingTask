@@ -1,0 +1,10 @@
+{
+  "simulation": "com.gatling.perf.test.GatlingPerfTestTask",
+  "simulationId": "gatlingperftesttask",
+  "start": 1711308925862,
+  "description": "",
+  "scenarios": ["Gatling_Performance_Testing_Task"],
+  "assertions": [
+
+  ]
+}
