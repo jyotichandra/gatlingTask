@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.gatling.perf.test.task</groupId>
-  <artifactId>gatling-perf-tests</artifactId>
+  <groupId>learning.gatling</groupId>
+  <artifactId>Learning-Gatling</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
@@ -11,8 +11,10 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <encoding>UTF-8</encoding>
 
-    <gatling.version>3.6.1</gatling.version>
-    <gatling-maven-plugin.version>3.1.2</gatling-maven-plugin.version>
+    <gatling.version>3.10.4</gatling.version>
+    <gatling-maven-plugin.version>4.8.2</gatling-maven-plugin.version>
+
+    <scala-maven-plugin.version>4.8.1</scala-maven-plugin.version>
   </properties>
 
   <dependencies>
@@ -36,10 +38,45 @@
   <build>
     <testSourceDirectory>src/test/scala</testSourceDirectory>
     <plugins>
+<!--      We can use this plugin for compiling/testing/running/documenting scala code in maven, "No need to install Scala"-->
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>${scala-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <jvmArgs>
+                <jvmArg>-Xss100M</jvmArg>
+              </jvmArgs>
+              <args>
+                <arg>-deprecation</arg>
+                <arg>-feature</arg>
+                <arg>-unchecked</arg>
+                <arg>-language:implicitConversions</arg>
+                <arg>-language:postfixOps</arg>
+              </args>
+            </configuration>
+          </execution>
+        </executions>
+<!--        Use the below code to explicitly set the version of Scala-->
+<!--        As of 15 March 2024, Scala 3 is not yet supported by this plugin-->
+<!--        <configuration>-->
+<!--          <scalaVersion>2.13.13</scalaVersion>-->
+<!--        </configuration>-->
+      </plugin>
+
       <plugin>
         <groupId>io.gatling</groupId>
         <artifactId>gatling-maven-plugin</artifactId>
         <version>${gatling-maven-plugin.version}</version>
+<!--        Use the below configuration to set the simulationClass-->
+<!--        <configuration>-->
+<!--          <simulationClass>ptegatlingtask.simulations.PTEGatlingTask</simulationClass>-->
+<!--        </configuration>-->
       </plugin>
     </plugins>
   </build>
